@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\BillPdfController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +28,5 @@ Route::middleware('auth:sanctum')->group(function () {
     // API Quản lý hóa đơn tính tiền điện nước
     Route::get('/bill-rooms', [ApiController::class, 'getBills']);
     Route::post('/bill-rooms', [ApiController::class, 'syncBill']);
+    Route::get('/bill-rooms/{bill}/pdf', BillPdfController::class);
 });

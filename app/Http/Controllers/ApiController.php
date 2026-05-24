@@ -143,16 +143,9 @@ class ApiController extends Controller
         $data['electric_consumption'] = $elecCons;
         $data['water_consumption'] = $waterCons;
         
-        // Tính toán tiền điện bậc thang lũy tiến phía máy chủ (Tier 1 = price - 500, Tier 2 = price)
+        // Tính toán tiền điện phẳng phía máy chủ
         $priceElec = floatval($data['price_electric']);
-        $tier1Price = $priceElec - 500;
-        $tier2Price = $priceElec;
-        
-        if ($elecCons > 100) {
-            $elecBill = (100 * $tier1Price) + (($elecCons - 100) * $tier2Price);
-        } else {
-            $elecBill = $elecCons * $tier1Price;
-        }
+        $elecBill = $elecCons * $priceElec;
         
         $totalPrice = $elecBill + 
                      ($waterCons * floatval($data['price_water'])) + 

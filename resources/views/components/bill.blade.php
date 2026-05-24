@@ -203,18 +203,9 @@
         @php
             $cons = floatval($record->electric_consumption);
             $basePrice = floatval($record->price_electric);
-            $tier1Price = $basePrice - 500;
-            $tier2Price = $basePrice;
-            
-            if ($cons > 100) {
-                $elecCost = (100 * $tier1Price) + (($cons - 100) * $tier2Price);
-                $elecDetail = "Chỉ số: {$record->old_electric} → {$record->new_electric} = {$cons} kWh\n(100 x " . Number::format($tier1Price) . " + " . ($cons - 100) . " x " . Number::format($tier2Price) . ")";
-                $elecUnitPriceText = 'Lũy tiến';
-            } else {
-                $elecCost = $cons * $tier1Price;
-                $elecDetail = "Chỉ số: {$record->old_electric} → {$record->new_electric} = {$cons} kWh";
-                $elecUnitPriceText = Number::format($tier1Price);
-            }
+            $elecCost = $cons * $basePrice;
+            $elecDetail = "Chỉ số: {$record->old_electric} → {$record->new_electric} = {$cons} kWh";
+            $elecUnitPriceText = Number::format($basePrice);
         @endphp
         <tr class="items">
             <td>

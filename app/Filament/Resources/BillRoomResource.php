@@ -331,15 +331,7 @@ class BillRoomResource extends Resource implements HasShieldPermissions
 
     private static function calculateTotalPrice(float $electric_consumption, float $price_electric, float $water_consumption, float $price_water, float $price_room, float $price_garbage): float
     {
-        $tier1Price = $price_electric - 500;
-        $tier2Price = $price_electric;
-
-        if ($electric_consumption > 100) {
-            $elecBill = (100 * $tier1Price) + (($electric_consumption - 100) * $tier2Price);
-        } else {
-            $elecBill = $electric_consumption * $tier1Price;
-        }
-
+        $elecBill = $electric_consumption * $price_electric;
         return $elecBill + $water_consumption * $price_water + $price_room + $price_garbage;
     }
 }
